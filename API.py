@@ -40,7 +40,17 @@ def patchalumno(alumno_name):
             "mensaje": "Alumno Actualizado satisfactoriamente",
             "alumno": alumno_found[0]
 })
-
+    
+## ELIMINAR UN ALUMNO
+@app.route("/alumnos/<string:alumno_name>", methods=["DELETE"])
+def eliminalumno(alumno_name):
+    alumnosfound = [alumno for alumno in alumnos if alumno["Nombre"] == alumno_name]
+    if len(alumnosfound) > 0:
+        alumnos.remove(alumnosfound[0])
+        return jsonify({
+            "mensaje": "Alumno Eliminado",
+            "alumnos": alumnos
+})
 
 if __name__ == "__main__":
     app.run(debug=True )
