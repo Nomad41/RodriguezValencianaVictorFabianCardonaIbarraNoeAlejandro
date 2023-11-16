@@ -27,6 +27,20 @@ def addalumno():
     alumnos.append(alumno)
     return jsonify({"mensaje": "alumno agregado satisfactoriamente", "alumnos":alumnos})
 
+## Actualizar UN ALUMNO
+@app.route("/alumnos/<string:alumno_name>", methods=["PATCH"])
+def patchalumno(alumno_name):
+    alumno_found = [alumno for alumno in alumnos if alumno["Nombre"] == alumno_name]
+    if len(alumno_found) > 0:
+        alumno_actualizado = {}
+        for key, value in request.json.items():
+            alumno_actualizado[key] = value
+        alumno_found[0].update(alumno_actualizado)
+        return jsonify({
+            "mensaje": "Alumno Actualizado satisfactoriamente",
+            "alumno": alumno_found[0]
+})
+
 
 if __name__ == "__main__":
     app.run(debug=True )
