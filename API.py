@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 
-
 app = Flask(__name__)
 
 @app.route("/")
@@ -21,6 +20,12 @@ def getalumno(alumno_name):
     if (len(alumnofound) > 0):
         return jsonify ({"alumno": alumnofound[0]})
 
+## AGREGAR UN ALUMNO 
+@app.route("/alumnos", methods=["POST"])
+def addalumno():
+    alumno = request.json
+    alumnos.append(alumno)
+    return jsonify({"mensaje": "alumno agregado satisfactoriamente", "alumnos":alumnos})
 
 
 if __name__ == "__main__":
